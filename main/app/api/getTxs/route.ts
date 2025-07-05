@@ -9,14 +9,12 @@ const getHandler = async (req: Request) => {
 
         const transactions = await Tx.find({}).sort({ date: -1 }); // Sort by date in descending order (newest first)
 
-        return NextResponse.json(
-            {
-                transactions: transactions,
-                message: "Transactions retrieved successfully",
-                count: transactions.length,
-            },
-            { status: 200 }
-        );
+        return NextResponse.json({
+            transactions: transactions,
+            message: "Transactions retrieved successfully",
+            count: transactions.length,
+            ok: true,
+        });
     } catch (error) {
         console.error("Error fetching transactions:", error);
         return NextResponse.json(

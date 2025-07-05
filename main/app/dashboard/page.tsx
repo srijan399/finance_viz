@@ -77,7 +77,7 @@ const Dashboard = () => {
             try {
                 setLoading(true);
                 const res = await fetch("/api/getTxs");
-                if (res.status !== 200) {
+                if (!res.ok) {
                     console.error("Failed to fetch transactions");
                     return;
                 }
