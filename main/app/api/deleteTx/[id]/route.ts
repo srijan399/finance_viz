@@ -4,13 +4,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 const deleteHandler = async (
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) => {
     try {
         await connectToDatabase();
 
-        console.log("Params:", params);
-        const id = params.id;
+        console.log("Params:", params, request);
+        const { id } = await params;
         console.log("Deleting transaction with ID:", id);
 
         if (!id) {

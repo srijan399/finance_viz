@@ -4,12 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 const updateHandler = async (
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) => {
     try {
         await connectToDatabase();
 
-        const id = params.id;
+        const { id } = await params;
 
         if (!id) {
             return new Response("Missing transaction ID", { status: 400 });

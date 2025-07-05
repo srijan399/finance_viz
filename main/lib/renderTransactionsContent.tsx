@@ -1,6 +1,5 @@
 import AddForm from "@/components/ui/addForm";
 import { Card, CardContent } from "@/components/ui/card";
-import { categoryIcons, getStatusBadge } from "@/app/dashboard/page";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -342,3 +341,21 @@ export const renderTransactionsContent = (
         </div>
     </div>
 );
+
+export const getStatusBadge = (amount: number) => {
+    if (amount > 1000)
+        return { label: "High", variant: "destructive" as const };
+    if (amount > 500) return { label: "Medium", variant: "secondary" as const };
+    return { label: "Low", variant: "default" as const };
+};
+
+export const categoryIcons = {
+    "daily expenses": { icon: "🚗", bg: "bg-blue-100", color: "text-blue-600" },
+    miscellaneous: { icon: "📦", bg: "bg-gray-100", color: "text-gray-600" },
+    "groceries & food": {
+        icon: "🛒",
+        bg: "bg-green-100",
+        color: "text-green-600",
+    },
+    bills: { icon: "⚡", bg: "bg-yellow-100", color: "text-yellow-600" },
+};

@@ -21,7 +21,7 @@ import {
     Cell,
 } from "recharts";
 
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -29,7 +29,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+// import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
     ChartContainer,
     ChartTooltip,
@@ -38,6 +38,7 @@ import {
 import AddForm from "@/components/ui/addForm";
 import Header from "@/components/ui/header";
 import { renderTransactionsContent } from "@/lib/renderTransactionsContent";
+// import { categoryIcons, getStatusBadge } from "@/lib/renderTransactionsContent";
 
 interface Transaction {
     _id: string;
@@ -55,24 +56,6 @@ const sidebarItems = [
     { icon: BarChart3, label: "Analytics", active: false, id: "analytics" },
     { icon: Settings, label: "Settings", active: false, id: "settings" },
 ];
-
-export const categoryIcons = {
-    "daily expenses": { icon: "🚗", bg: "bg-blue-100", color: "text-blue-600" },
-    miscellaneous: { icon: "📦", bg: "bg-gray-100", color: "text-gray-600" },
-    "groceries & food": {
-        icon: "🛒",
-        bg: "bg-green-100",
-        color: "text-green-600",
-    },
-    bills: { icon: "⚡", bg: "bg-yellow-100", color: "text-yellow-600" },
-};
-
-export const getStatusBadge = (amount: number) => {
-    if (amount > 1000)
-        return { label: "High", variant: "destructive" as const };
-    if (amount > 500) return { label: "Medium", variant: "secondary" as const };
-    return { label: "Low", variant: "default" as const };
-};
 
 const chartConfig = {
     amount: {
@@ -157,14 +140,15 @@ const Dashboard = () => {
         }).format(amount);
     };
 
-    const formatDate = (date: string | Date) => {
-        const dateObj = typeof date === "string" ? new Date(date) : date;
-        return dateObj.toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-        });
-    };
+    // const formatDate = (date: string | Date) => {
+    //     const dateObj = typeof date === "string" ? new Date(date) : date;
+    //     return dateObj.toLocaleDateString("en-US", {
+    //         month: "short",
+    //         day: "numeric",
+    //         year: "numeric",
+    //     });
+    // };
+
     function getCategoryColor(category: string) {
         const colors = {
             "daily expenses": "#3b82f6",
@@ -451,8 +435,8 @@ const Dashboard = () => {
                             No Transactions Found
                         </h3>
                         <p className="text-gray-500 mb-4">
-                            You haven't added any transactions yet. Start by
-                            adding your first transaction!
+                            You haven&apos;t added any transactions yet. Start
+                            by adding your first transaction!
                         </p>
                         <AddForm
                             refresh={refreshFlag}

@@ -5,6 +5,7 @@ import Tx from "@/app/_models/schema";
 const getHandler = async (req: Request) => {
     try {
         await connectToDatabase();
+        console.log(req);
 
         const transactions = await Tx.find({}).sort({ date: -1 }); // Sort by date in descending order (newest first)
 

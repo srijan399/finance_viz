@@ -6,6 +6,7 @@ const deleteAll = async (req: Request) => {
     try {
         await connectToDatabase();
 
+        console.log(req);
         const deletedTx = await Tx.deleteMany({});
 
         if (!deletedTx) {
