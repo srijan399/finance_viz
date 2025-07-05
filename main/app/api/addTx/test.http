@@ -1,0 +1,9 @@
+POST http://localhost:3000/api/addTx
+Content-Type: application/json
+
+{
+  "amount": 100,
+  "date": "2023-10-01T00:00:00.000Z",
+  "category": "Food",
+  "description": "Lunch at cafe"
+}

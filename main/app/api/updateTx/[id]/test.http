@@ -1,0 +1,6 @@
+PUT http://localhost:3000/api/updateTx/686913be5387df70d73e5a7c
+Content-Type: application/json
+
+{
+  "amount": 3000
+}
