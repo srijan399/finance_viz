@@ -28,9 +28,10 @@ export function SignUpDialog({
     const [inputUsername, setInputUsername] = useState(""); // Local state for input
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
-    const { setUsername, setUserId } = useUserContext();
+    const { username, setUsername, setUserId } = useUserContext();
 
-    const handleGetStarted = async () => {
+    const handleGetStarted = async (e: React.FormEvent) => {
+        e.preventDefault();
         if (inputUsername.trim()) {
             setIsLoading(true);
             try {
@@ -39,7 +40,7 @@ export function SignUpDialog({
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ username: inputUsername.trim() }),
+                    body: JSON.stringify({ username: inputUsername }),
                 });
                 const newUser = await res.json();
 
@@ -99,16 +100,14 @@ export function SignUpDialog({
                             value={inputUsername}
                             onChange={(e) => setInputUsername(e.target.value)}
                             className="w-full"
-                            onKeyPress={(e) =>
-                                e.key === "Enter" && handleGetStarted()
-                            }
                             disabled={isLoading}
                         />
                         <Button
                             size="lg"
                             className="w-full bg-gradient-to-r from-purple-600 to-rose-600 hover:from-purple-700 hover:to-rose-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 font-semibold"
-                            onClick={handleGetStarted}
+                            onSubmit={handleGetStarted}
                             disabled={!inputUsername.trim() || isLoading}
+                            type="submit"
                         >
                             {isLoading ? "Creating Account..." : "Sign Up Now"}
                         </Button>

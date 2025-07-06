@@ -1,7 +1,7 @@
 import { User } from "@/app/_models/schema";
 import connectToDatabase from "@/lib/connect";
 
-const createUser = async (req: Request) => {
+export async function POST(req: Request) {
     try {
         await connectToDatabase();
 
@@ -40,6 +40,4 @@ const createUser = async (req: Request) => {
         console.error("Error creating user:", error);
         return new Response("Internal Server Error", { status: 500 });
     }
-};
-
-export { createUser as POST };
+}
