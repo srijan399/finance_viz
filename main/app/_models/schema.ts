@@ -21,4 +21,11 @@ const txSchema = new mongoose.Schema({
 
 const Tx = mongoose.models.Tx || mongoose.model("Tx", txSchema);
 
+const userSchema = new mongoose.Schema({
+    username: { type: String, required: true },
+    transactions: [txSchema],
+});
+
+export const User = mongoose.models.User || mongoose.model("User", userSchema);
+
 export default Tx;

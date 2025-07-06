@@ -1,5 +1,5 @@
 import connectToDatabase from "@/lib/connect";
-import Tx from "@/app/_models/schema";
+import { User } from "@/app/_models/schema";
 import { NextRequest as Request } from "next/server";
 import { NextResponse as Response } from "next/server";
 
@@ -8,25 +8,32 @@ const postHandler = async (req: Request) => {
         await connectToDatabase();
 
         const body = await req.json();
-        const { amount, date, description, category } = body;
+        const { amount, date, description, category, username } = body;
 
-        if (!amount || !date || !description || !category) {
+        if (!amount || !date || !description || !category || !username) {
             return new Response("Missing required fields", { status: 400 });
         }
 
-        const newTx = new Tx({
+        const user = await User.findOne({ username });
+
+        if (!user) {
+            return new Response("User not found", { status: 404 });
+        }
+
+        const newTx = {
             amount,
             date: new Date(date),
             description,
             category,
-        });
+        };
 
-        await newTx.save();
+        user.transactions.push(newTx);
+        await user.save();
 
         return new Response(
             JSON.stringify({
                 newTx: newTx,
-                message: "Transaction added successfully",
+                message: "Transaction added successfully to user",
             }),
             {
                 status: 201,

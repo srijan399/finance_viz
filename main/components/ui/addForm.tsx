@@ -23,13 +23,13 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { useUserContext } from "@/app/context/userContext";
 
 interface AddFormProps {
     refresh: boolean;
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// Define categories with their display names and lowercase values
 const categories = [
     { value: "daily expenses", label: "Daily Expenses", icon: "🚗" },
     { value: "miscellaneous", label: "Miscellaneous", icon: "📦" },
@@ -62,6 +62,7 @@ const AddForm = ({ refresh, setRefresh }: AddFormProps) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
+    const { username } = useUserContext();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -98,7 +99,8 @@ const AddForm = ({ refresh, setRefresh }: AddFormProps) => {
                     amount: data.amount,
                     date: data.date.toISOString(),
                     description: data.description,
-                    category: data.category.toLowerCase(), // Ensure lowercase
+                    category: data.category.toLowerCase(),
+                    username: username,
                 }),
             });
 
@@ -123,7 +125,6 @@ const AddForm = ({ refresh, setRefresh }: AddFormProps) => {
     };
 
     return (
-        // <div className="flex flex-col items-center justify-center h-screen">
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild className="mb-6">
                 <Button className="bg-purple-600 hover:bg-purple-700 text-white gap-2">

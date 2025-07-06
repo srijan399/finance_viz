@@ -9,6 +9,7 @@ import {
 import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+// import { useUserContext } from "@/app/context/userContext";
 
 interface Transaction {
     _id: string;
@@ -34,13 +35,21 @@ const handleUpdateTransaction = async (id: string, onSuccess: () => void) => {
     }
 };
 
-const handleDeleteTransaction = async (id: string, onSuccess: () => void) => {
+const handleDeleteTransaction = async (
+    id: string,
+    username: string,
+    onSuccess: () => void
+) => {
     console.log("Delete transaction:", id);
-    const response = await fetch(`/api/deleteTx/${id}`, {
+    const response = await fetch(`/api/deleteTx/`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+            username: username,
+            transactionId: id,
+        }),
     });
 
     if (response.ok) {
@@ -70,7 +79,8 @@ const formatDate = (date: string | Date) => {
 export const renderTransactionsContent = (
     transactions: Transaction[],
     refreshFlag: boolean,
-    setRefreshFlag: React.Dispatch<React.SetStateAction<boolean>>
+    setRefreshFlag: React.Dispatch<React.SetStateAction<boolean>>,
+    username: string
 ) => (
     <div className="flex-1 overflow-auto">
         <div className="p-4 lg:p-6 pb-8">
@@ -95,6 +105,12 @@ export const renderTransactionsContent = (
                                     <div
                                         key={transaction._id}
                                         className="bg-white border rounded-lg p-4 shadow-sm"
+                                        onClick={() =>
+                                            console.log(
+                                                "Transaction clicked:",
+                                                transaction._id
+                                            )
+                                        }
                                     >
                                         <div className="flex items-start justify-between mb-3">
                                             <div className="flex items-center gap-3">
@@ -144,6 +160,7 @@ export const renderTransactionsContent = (
                                                         onClick={() =>
                                                             handleDeleteTransaction(
                                                                 transaction._id,
+                                                                username,
                                                                 () =>
                                                                     setRefreshFlag(
                                                                         !refreshFlag
@@ -317,6 +334,7 @@ export const renderTransactionsContent = (
                                                             onClick={() =>
                                                                 handleDeleteTransaction(
                                                                     transaction._id,
+                                                                    username,
                                                                     () =>
                                                                         setRefreshFlag(
                                                                             !refreshFlag

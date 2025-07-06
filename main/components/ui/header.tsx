@@ -23,6 +23,7 @@ import {
     DropdownMenuTrigger,
     DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { useRouter } from "next/navigation";
 
 interface HeaderProps {
     activeTab: string;
@@ -41,6 +42,7 @@ const Header = ({
 }: HeaderProps) => {
     const [searchQuery, setSearchQuery] = useState("");
     const [showMobileSearch, setShowMobileSearch] = useState(false);
+    const router = useRouter();
 
     const getTabTitle = (tab: string) => {
         switch (tab) {
@@ -75,6 +77,20 @@ const Header = ({
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         onSearch?.(searchQuery);
+    };
+
+    const username = localStorage.getItem("finzUsername");
+    const userId = localStorage.getItem("finzUserId");
+
+    if (!username || !userId) {
+        alert("User not found in localStorage");
+        router.push("/");
+    }
+
+    const handleSignOut = () => {
+        localStorage.removeItem("finzUsername");
+        localStorage.removeItem("finzUserId");
+        router.push("/");
     };
 
     return (
@@ -219,11 +235,13 @@ const Header = ({
                                             >
                                                 <Avatar className="w-8 h-8">
                                                     <AvatarFallback className="bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold">
-                                                        HA
+                                                        {username
+                                                            ?.charAt(0)
+                                                            .toUpperCase()}
                                                     </AvatarFallback>
                                                 </Avatar>
                                                 <span className="font-medium text-gray-700 hidden sm:inline">
-                                                    Hania Amir
+                                                    {username}
                                                 </span>
                                                 <ChevronDown className="w-4 h-4 text-gray-400 hidden sm:inline" />
                                             </Button>
@@ -235,10 +253,11 @@ const Header = ({
                                             <DropdownMenuItem>
                                                 <div className="flex flex-col space-y-1">
                                                     <p className="text-sm font-medium">
-                                                        Hania Amir
+                                                        {username}
                                                     </p>
                                                     <p className="text-xs text-gray-500">
-                                                        hania@example.com
+                                                        User ID:{" "}
+                                                        {userId?.split("-")[0]}
                                                     </p>
                                                 </div>
                                             </DropdownMenuItem>
@@ -253,7 +272,12 @@ const Header = ({
                                                 Help
                                             </DropdownMenuItem>
                                             <DropdownMenuSeparator />
-                                            <DropdownMenuItem className="text-red-600">
+                                            <DropdownMenuItem
+                                                className="text-red-600"
+                                                onClick={() => {
+                                                    handleSignOut();
+                                                }}
+                                            >
                                                 Sign out
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>

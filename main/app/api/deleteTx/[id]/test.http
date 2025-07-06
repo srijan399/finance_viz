@@ -1,2 +1,7 @@
-DELETE http://localhost:3001/api/deleteTx/68697e3e3bf971261269243b
+DELETE http://localhost:3000/api/deleteTx/
 Content-Type: application/json
+
+{
+    "username": "Sri",
+    "transactionId": "686aa218ef09b2d99a6c247a"
+}

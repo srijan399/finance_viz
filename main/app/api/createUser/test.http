@@ -1,0 +1,6 @@
+POST http://localhost:3000/api/createUser
+Content-Type: application/json
+
+{
+  "username": "Puchu"
+}
