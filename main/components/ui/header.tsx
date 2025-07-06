@@ -3,7 +3,7 @@
 import { useState } from "react";
 import {
     Search,
-    Filter,
+    // Filter,
     Download,
     Bell,
     ChevronDown,
@@ -37,7 +37,7 @@ const Header = ({
     activeTab,
     setSidebarOpen,
     onSearch,
-    onFilter,
+    // onFilter,
     onExport,
 }: HeaderProps) => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -195,17 +195,6 @@ const Header = ({
                         {/* Action buttons - Hidden on mobile when search is active */}
                         {!showMobileSearch && (
                             <>
-                                <Button
-                                    variant="outline"
-                                    className="gap-2 bg-white/80 hover:bg-white border-gray-200 backdrop-blur-sm hidden md:flex"
-                                    onClick={onFilter}
-                                >
-                                    <Filter className="w-4 h-4" />
-                                    <span className="hidden lg:inline">
-                                        Filters
-                                    </span>
-                                </Button>
-
                                 <Button
                                     variant="outline"
                                     className="gap-2 bg-white/80 hover:bg-white border-gray-200 backdrop-blur-sm hidden md:flex"

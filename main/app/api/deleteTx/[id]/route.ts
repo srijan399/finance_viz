@@ -14,28 +14,36 @@ const deleteHandler = async (
         console.log("Deleting transaction with ID:", id);
 
         if (!id) {
-            return new Response("Missing transaction ID", { status: 400 });
+            return NextResponse.json(
+                { message: "Missing transaction ID" },
+                { status: 400 }
+            );
         }
 
         const deletedTx = await Tx.findByIdAndDelete(id);
 
         if (!deletedTx) {
-            return new Response("Transaction not found", { status: 404 });
+            return NextResponse.json(
+                { message: "Transaction not found" },
+                { status: 404 }
+            );
         }
 
-        return new NextResponse(
-            JSON.stringify({
+        return NextResponse.json(
+            {
                 message: "Transaction deleted successfully",
                 deletedTx: deletedTx,
-            }),
+            },
             {
                 status: 200,
-                headers: { "Content-Type": "application/json" },
             }
         );
     } catch (error) {
         console.error("Error deleting transaction:", error);
-        return new Response("Internal Server Error", { status: 500 });
+        return NextResponse.json(
+            { message: "Internal Server Error" },
+            { status: 500 }
+        );
     }
 };
 

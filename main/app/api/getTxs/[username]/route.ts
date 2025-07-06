@@ -1,5 +1,5 @@
 import connectToDatabase from "@/lib/connect";
-import { NextResponse } from "next/server";
+import { NextRequest as Request, NextResponse } from "next/server";
 import { User } from "@/app/_models/schema";
 
 const getHandler = async (
@@ -28,7 +28,6 @@ const getHandler = async (
             );
         }
 
-        // Sort transactions by date in descending order
         const sortedTransactions = user.transactions.sort(
             (a: any, b: any) =>
                 new Date(b.date).getTime() - new Date(a.date).getTime()

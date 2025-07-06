@@ -126,13 +126,13 @@ const AddForm = ({ refresh, setRefresh }: AddFormProps) => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild className="mb-6">
+            <DialogTrigger asChild>
                 <Button className="bg-purple-600 hover:bg-purple-700 text-white gap-2">
                     <Plus className="mr-2 h-4 w-4" />
                     Add Transaction
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="sm:max-w-md backdrop:blur-lg">
                 <DialogHeader>
                     <DialogTitle>Add New Transaction</DialogTitle>
                     <DialogDescription>
@@ -271,7 +271,7 @@ const AddForm = ({ refresh, setRefresh }: AddFormProps) => {
                         <Button
                             type="submit"
                             disabled={loading}
-                            className="flex-1"
+                            className="flex-1 bg-purple-700 text-white hover:bg-purple-800 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {loading ? "Adding..." : "Add Transaction"}
                         </Button>

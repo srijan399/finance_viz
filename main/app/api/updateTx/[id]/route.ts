@@ -36,7 +36,6 @@ const updateHandler = async (
             return new Response("Transaction not found", { status: 404 });
         }
 
-        // Update the transaction fields
         if (amount !== undefined)
             user.transactions[transactionIndex].amount = amount;
         if (date !== undefined)

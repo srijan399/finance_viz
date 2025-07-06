@@ -39,6 +39,7 @@ import AddForm from "@/components/ui/addForm";
 import Header from "@/components/ui/header";
 import { renderTransactionsContent } from "@/lib/renderTransactionsContent";
 import { useUserContext } from "../context/userContext";
+import Link from "next/link";
 // import { categoryIcons, getStatusBadge } from "@/lib/renderTransactionsContent";
 
 interface Transaction {
@@ -72,6 +73,7 @@ const Dashboard = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [activeTab, setActiveTab] = useState("Dashboard");
     const [refreshFlag, setRefreshFlag] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
     const { username, isLoading } = useUserContext();
 
@@ -225,7 +227,7 @@ const Dashboard = () => {
                                                             formatCurrency(
                                                                 value as number
                                                             ),
-                                                            "Total Expenses",
+                                                            " Total Expenses",
                                                         ]}
                                                         labelFormatter={(
                                                             label
@@ -258,7 +260,7 @@ const Dashboard = () => {
                         <CardContent>
                             <ChartContainer
                                 config={chartConfig}
-                                className="h-[250px] lg:h-[300px]"
+                                // className="h-[250px] lg:h-[300px]"
                             >
                                 <ResponsiveContainer width="100%" height="100%">
                                     <PieChart>
@@ -465,7 +467,9 @@ const Dashboard = () => {
                     transactions,
                     refreshFlag,
                     setRefreshFlag,
-                    username
+                    username,
+                    selectedCategory,
+                    setSelectedCategory
                 );
             case "activity":
                 return (
@@ -514,7 +518,9 @@ const Dashboard = () => {
                     transactions,
                     refreshFlag,
                     setRefreshFlag,
-                    username
+                    username,
+                    selectedCategory,
+                    setSelectedCategory
                 );
         }
     };
@@ -545,14 +551,16 @@ const Dashboard = () => {
                             <X className="w-6 h-6" />
                         </button>
 
-                        <div className="flex items-center gap-2 mb-8">
-                            <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
-                                <Wallet className="w-5 h-5 text-white" />
+                        <Link href="/">
+                            <div className="flex items-center gap-2 mb-8 ml-4">
+                                <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
+                                    <Wallet className="w-5 h-5 text-white" />
+                                </div>
+                                <span className="font-bold text-lg text-gray-800">
+                                    FinZ
+                                </span>
                             </div>
-                            <span className="font-bold text-lg text-gray-800">
-                                FinanceTracker
-                            </span>
-                        </div>
+                        </Link>
 
                         <nav className="space-y-2">
                             {sidebarItems.map((item, index) => (
