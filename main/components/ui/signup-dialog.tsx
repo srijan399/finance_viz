@@ -105,9 +105,8 @@ export function SignUpDialog({
                         <Button
                             size="lg"
                             className="w-full bg-gradient-to-r from-purple-600 to-rose-600 hover:from-purple-700 hover:to-rose-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 font-semibold"
-                            onSubmit={handleGetStarted}
+                            onClick={handleGetStarted}
                             disabled={!inputUsername.trim() || isLoading}
-                            type="submit"
                         >
                             {isLoading ? "Creating Account..." : "Sign Up Now"}
                         </Button>
