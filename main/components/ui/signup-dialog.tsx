@@ -28,7 +28,7 @@ export function SignUpDialog({
     const [inputUsername, setInputUsername] = useState(""); // Local state for input
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
-    const { username, setUsername, setUserId } = useUserContext();
+    const { setUsername, setUserId } = useUserContext();
 
     const handleGetStarted = async (e: React.FormEvent) => {
         e.preventDefault();
